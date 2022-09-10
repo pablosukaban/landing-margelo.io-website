@@ -34,7 +34,7 @@ const Masthead: React.FC = () => {
                     <span>App development,</span> <span>done right.</span>
                 </h2>
             </div>
-            <div className={'flex-grow-0 pb-10 md:pb-20 transition-all duration-1000'}>
+            <div className={'flex-grow-0 pb-10 md:pb-12 transition-all duration-1000'}>
                 <img src={arrow} className={'w-[60px]'} alt={'arrow down'}/>
             </div>
         </div>
