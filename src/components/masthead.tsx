@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import logo from '../assets/logo.svg';
 import arrow from '../assets/arrow-down.svg';
 import video from 'C:/Users/zapas/web_shit/projects/margelo-website-vite/src/assets/masthead-bg.mp4';
@@ -6,6 +6,7 @@ import { ScrollContext } from '../utils/scroll-observer';
 
 const Masthead: React.FC = () => {
     const refContainer = useRef<HTMLDivElement>(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const { scrollY } = useContext(ScrollContext);
     const { current: elContainer } = refContainer;
 
@@ -15,10 +16,9 @@ const Masthead: React.FC = () => {
         progress = Math.min(1, scrollY / elContainer.clientHeight);
     }
 
-    console.log("progress:", progress) // 0...1
-    console.log("scrollY:", scrollY)
-    console.log("elContainer.clientHeight:", elContainer?.clientHeight) // 975
-    console.log("result: ", progress * 20)
+    const handleImageLoaded = () => {
+        setImageLoaded(true);
+    };
 
     return (
         <div
@@ -41,9 +41,9 @@ const Masthead: React.FC = () => {
                 <source src={'../assets/masthead-bg.mp4'} type={'video/mp4'} />
             </video>
             <div
-                className={
-                    'flex-grow-0 z-10 pt-10 transition-opacity duration-1000 w-[40px] h-[40px] '
-                }
+                className={`flex-grow-0 z-10 pt-10 transition-opacity duration-1000 w-[40px] h-[40px] ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0'
+                }`}
             >
                 <img src={logo} alt={'logo'} />
             </div>
@@ -58,11 +58,16 @@ const Masthead: React.FC = () => {
                 </h2>
             </div>
             <div
-                className={
-                    'flex-grow-0 pb-10 md:pb-12 transition-all duration-1000 z-10'
-                }
+                className={`flex-grow-0 pb-10 md:pb-8 transition-all duration-1000 z-10 ${
+                    imageLoaded ? 'opacity-100' : 'opacity-0 -translate-y-10'
+                }`}
             >
-                <img src={arrow} className={'w-[60px]'} alt={'arrow down'} />
+                <img
+                    onLoad={handleImageLoaded}
+                    src={arrow}
+                    className={'w-[60px]'}
+                    alt={'arrow down'}
+                />
             </div>
         </div>
     );
