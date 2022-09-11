@@ -1,5 +1,6 @@
-import Masthead from "./components/masthead";
-import AboutUs from "./components/AboutUs";
+import React from 'react';
+import Masthead from './components/masthead';
+import AboutUs from './components/AboutUs';
 
 const App = () => {
     return (
@@ -7,7 +8,7 @@ const App = () => {
             <Masthead />
             <AboutUs />
         </div>
-    )
-}
+    );
+};
 
-export default App
+export default App;
